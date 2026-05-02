@@ -403,8 +403,15 @@ def _safe_text_writer(fileobj):
         return fileobj
 
     # UTF-8 / UTF-16 / UTF-32 cover the full Unicode range — no wrapping needed.
-    if codec_info.name in {"utf-8", "utf-16", "utf-32", "utf-16-le",
-                           "utf-16-be", "utf-32-le", "utf-32-be"}:
+    if codec_info.name in {
+        "utf-8",
+        "utf-16",
+        "utf-32",
+        "utf-16-le",
+        "utf-16-be",
+        "utf-32-le",
+        "utf-32-be",
+    }:
         return fileobj
 
     # Re-wrap only if there is an underlying binary buffer to attach to.
@@ -415,9 +422,11 @@ def _safe_text_writer(fileobj):
         fileobj.buffer,
         encoding=encoding,
         errors="backslashreplace",
-        line_buffering=fileobj.line_buffering
-        if hasattr(fileobj, "line_buffering")
-        else False,
+        line_buffering=(
+            fileobj.line_buffering
+            if hasattr(fileobj, "line_buffering")
+            else False
+        ),
         write_through=True,
     )
 

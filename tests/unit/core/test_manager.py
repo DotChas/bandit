@@ -265,8 +265,9 @@ class ManagerTests(testtools.TestCase):
         conf_level = constants.LOW
         output_format = "txt"
 
-        with io.open(output_filename, "w", encoding="gbk",
-                     errors="strict") as tmp_file:
+        with open(
+            output_filename, "w", encoding="gbk", errors="strict"
+        ) as tmp_file:
             # Must not raise a UnicodeEncodeError or RuntimeError.
             try:
                 self.manager.output_results(
